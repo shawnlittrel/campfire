@@ -1,0 +1,32 @@
+{
+  "name": "group-of-friends",
+  "version": "1.0.0",
+  "description": "A way for groups to fill any empty slots for activities, as well as for individuals to randomly view open groups in their area.",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm run test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pahlzachary/group-of-friends.git"
+  },
+  "author": "SL, ZP, AM",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pahlzachary/group-of-friends/issues"
+  },
+  "homepage": "https://github.com/pahlzachary/group-of-friends#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "connect-session-sequelize": "^7.1.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.3.0",
+    "express-session": "^1.17.1",
+    "faker": "^5.5.3",
+    "jest": "^26.6.3",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.6.2"
+  }
+}
