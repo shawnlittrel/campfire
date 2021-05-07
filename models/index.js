@@ -19,3 +19,4 @@ User.belongsToMany(Group, {
 Group.hasMany(Match, {
      foreignKey: 'group_id'
 });
+
