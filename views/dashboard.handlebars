@@ -1,0 +1,28 @@
+<section>
+  <h2>Create New Group Post</h2>
+
+  <form class="new-post-form">
+    <div>
+      <label for="post-title">Title</label>
+      <input type="text" id="post-title" name="post-title" />
+    </div>
+    <div>
+      <label for="post-url"> ??? </label>
+      <input        />
+    </div>
+    <button type="submit" class="btn">Create</button>
+  </form>
+</section>
+
+{{#if group.length}}
+<section>
+  <h2>Your Posts</h2>
+  <ol>
+    {{#each groups as |group|}}
+    <li>
+      {{> group-info group}}
+    </li>
+    {{/each}}
+  </ol>
+</section>
+{{/if}}
