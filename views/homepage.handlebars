@@ -12,6 +12,7 @@
 <ul class="single-group">
 {{#if loggedIn}}
 <li>
+  
   {{> group-info singleGroup}} 
 
   {{!-- singlegroup and userid needs to come from controller --}}
@@ -24,6 +25,7 @@
 <p class= "email" style = "display:none">
 {{singleGroup.email}}
 </p>
+
 {{/if}}
 
 {{#if loggedIn}}
