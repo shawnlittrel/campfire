@@ -4,20 +4,23 @@ const Group = require('./Group');
 
 //create associations
 User.hasMany(Match, {
-     foreignKey: 'user_id'
+     foreignKey: 'id'
 });
 
-// User.belongsTo(Group, {
-//      foreignKey: 'user_id'
-// });
-
-User.belongsToMany(Group, {
-     through: Match,
+User.belongsToMany(Match, {
      foreignKey: 'user_id'
 });
 
 Group.hasMany(Match, {
+     foreignKey: 'id'
+});
+
+Group.belongsToMany(Match, {
      foreignKey: 'group_id'
+});
+
+Group.belongsTo(User, {
+     foreignKey: 'creating_user_id'
 });
 
 module.exports = { User, Group, Match };
