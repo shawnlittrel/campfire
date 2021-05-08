@@ -75,12 +75,12 @@ router.get('/campfire', (req, res) => {
 });
 
 //Render Login page
-router.get("/login", (req, res) => {
+router.get('/login', (req, res) => {
      res.render("login");
    });
 
 //Render Register page
-router.get("/register", (req, res) => {
+router.get('/register', (req, res) => {
      res.render("register");
    });
 
