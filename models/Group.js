@@ -63,7 +63,7 @@ Group.init(
                }
           },
 
-          user_id: {
+          creating_user_id: {
                type: DataTypes.INTEGER,
                references: {
                     model: 'user',

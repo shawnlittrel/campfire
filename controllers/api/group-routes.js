@@ -22,6 +22,7 @@ router.post("/", (req, res) => {
 });
 
 //read all group's info
+//TODO: not sure if we need to pull all group info for app functionality.
 router.get("/", (req, res) => {
   Group.findAll({
     //exclude any info?
@@ -44,6 +45,7 @@ router.get("/", (req, res) => {
 });
 
 //read 1 specific group's info
+//TODO: We can use this when we add search functionality for a specific group.
 router.get("/:id", (req, res) => {
   Group.findOne({
     where: { id: req.params.id },
