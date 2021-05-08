@@ -92,7 +92,6 @@ router.get('/test', (req, res) => {
               include: [Users]
          })
      .then(dbTestData => {
-          console.log(dbTestData);
        res.json(dbTestData);
      })
      });
