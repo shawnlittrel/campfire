@@ -18,7 +18,6 @@
   },
   "homepage": "https://github.com/pahlzachary/group-of-friends#readme",
   "dependencies": {
-    "async": "^3.2.0",
     "bcrypt": "^5.0.1",
     "connect-session-sequelize": "^7.1.1",
     "csv-writer": "^1.6.0",
