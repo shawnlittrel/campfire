@@ -11,13 +11,13 @@ User.hasMany(Match, {
 //      foreignKey: 'user_id'
 // });
 
-// User.belongsToMany(Group, {
-//      through: Match,
-//      foreignKey: 'user_id'
-// });
+User.belongsToMany(Group, {
+     through: Match,
+     foreignKey: 'user_id'
+});
 
-// Group.hasMany(Match, {
-//      foreignKey: 'group_id'
-// });
+Group.hasMany(Match, {
+     foreignKey: 'group_id'
+});
 
 module.exports = { User, Group, Match };
