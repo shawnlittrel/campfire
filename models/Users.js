@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 //Create User Model
 
-class User extends Model{
+class Users extends Model{
      //check password for login
      checkPassword(loginPw) {
           return bcrypt.compareSync(loginPw, this.password);
@@ -12,7 +12,7 @@ class User extends Model{
 }
 
 //Define tables
-User.init(
+Users.init(
      {
           id: {
                type: DataTypes.INTEGER,
@@ -72,8 +72,8 @@ User.init(
           timestamps: false,
           freezeTableName: true,
           underscored: true,
-          modelName: 'user'
+          modelName: 'users'
      }
 );
 
-module.exports = User;
+module.exports = Users;
