@@ -3,6 +3,23 @@ const { User, Match, Group } = require("../../models");
 const withAuth = require("../../utils/auth");
 
 //Render User Dashboard - is this where we have a create groups button and see what we matched with?
+router.get('/dashboard', (req, res) => {
+     Match.findAll({
+          where: {
+               user_id: req.session.id
+          }
+     })
+     .then(userMatchData => {
+          const userData = userMatchData.get({ plain: true });
+          const loggedIn = req.session.loggedIn;
+
+          if(loggedIn) {
+               res.render('dashboard', { userData });
+          } else {
+               res.render('login');
+          }
+     });
+});
 
 //Render Group Create page
 router.get('/create-group', (req, res) => {
