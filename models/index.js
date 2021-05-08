@@ -1,26 +1,33 @@
-const User = require('./User');
+const Users = require('./Users');
 const Match = require('./Match');
-const Group = require('./Group');
+const Campfire = require('./Campfire');
 
 //create associations
-User.hasMany(Match, {
+//User can match with more than one group
+//TODO: this is breaking table generation
+// Match.hasMany(Users, {
+//      foreignKey: 'id'
+// });
+
+//More than 1 user can match with a group
+Users.hasMany(Match, {
+     foreignKey: 'user_id',
+     constraints: false
+})
+
+//Groups will have more than 1 match
+Campfire.hasMany(Match, {
      foreignKey: 'id'
 });
 
-User.belongsToMany(Match, {
-     foreignKey: 'user_id'
-});
+//Need to match with more than 1 Campfire
+// Campfire.belongsToMany(Match, {
+//      foreignKey: 'group_id'
+// });
 
-Group.hasMany(Match, {
-     foreignKey: 'id'
-});
-
-Group.belongsToMany(Match, {
-     foreignKey: 'group_id'
-});
-
-Group.belongsTo(User, {
+//Users create the Campfires
+Campfire.belongsTo(Users, {
      foreignKey: 'creating_user_id'
 });
 
-module.exports = { User, Group, Match };
+module.exports = { Users, Campfire, Match };
