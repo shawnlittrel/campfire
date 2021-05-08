@@ -24,14 +24,38 @@ router.get('/edit-group', (req, res) => {
 
 //Render Match/'Campfire'/Display random groups for matching
 router.get('/campfire', (req, res) => {
-     if (req.session.loggedIn) {
-          Group.findOne({
+     const loggedIn = req.session.loggedIn;
+     if(loggedIn){
+          Match.findOne({
                where: {
-                    
-               }
+                    user_id: req.session.id,
+                    matched: NULL
+               },
+
+               include: [
+                    {
+                         model: Group,
+                         attributes: [
+                              'group_name',
+                              'group_email',
+                              'group_location',
+                              'activity_title',
+                              'activity_description',
+                              'open_slots',
+                              'activity_date',
+                         ],
+                    },
+               ]
           })
+          .then(groupPostData => {
+               const groupData = groupPostData.get({ plain: true });
+
+               res.render('campfire', { groupData });  
+          });
+     } else {
+          res.render('login');
      }
-})
+});
 
 //Render Login page
 router.get("/login", (req, res) => {
