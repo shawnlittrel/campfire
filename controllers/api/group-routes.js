@@ -5,7 +5,7 @@ const withAuth = require("../../utils/auth");
 //TODO: Need to add withAuth later
 
 //create a group
-//TODO: TESTED, Campfire.create doesn't create an id though.
+//TODO: TESTED, WORKING
 router.post("/create", (req, res) => {
   Campfire.create({
     group_name: req.body.group_name,
@@ -15,6 +15,7 @@ router.post("/create", (req, res) => {
     activity_description: req.body.activity_description,
     activity_date: req.body.activity_date,
     open_slots: req.body.open_slots,
+    creating_user_id: req.body.creating_user_id  //TODO: change to req.session.id when site is running properly
   })
     .then(dbGroupData => {
       console.log('CREATING GROUP');
