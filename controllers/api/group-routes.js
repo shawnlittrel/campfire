@@ -2,10 +2,11 @@ const router = require("express").Router();
 
 const { User, Match, Campfire } = require("../../models");
 const withAuth = require("../../utils/auth");
-//Need to add withAuth later
+//TODO: Need to add withAuth later
 
 //create a group
-router.post("/", (req, res) => {
+//TODO: TESTED, Campfire.create doesn't create an id though.
+router.post("/create", (req, res) => {
   Campfire.create({
     group_name: req.body.group_name,
     group_email: req.body.group_email,
@@ -15,7 +16,10 @@ router.post("/", (req, res) => {
     activity_date: req.body.activity_date,
     open_slots: req.body.open_slots,
   })
-    .then((dbGroupData) => res.json(dbGroupData))
+    .then(dbGroupData => {
+      console.log('CREATING GROUP');
+      res.json(dbGroupData)
+    })
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
@@ -47,6 +51,7 @@ router.get("/", (req, res) => {
 
 //read 1 specific group's info
 //TODO: We can use this when we add search functionality for a specific group.
+//TODO: TESTED AND WORKING
 router.get("/:id", (req, res) => {
   Campfire.findOne({
     where: { id: req.params.id },
@@ -77,7 +82,8 @@ router.get("/:id", (req, res) => {
 //update and edit group
 router.put("/:id", (req, res) => {
   Campfire.update(
-      //needs review - not sure correct
+      //TODO: needs review - not sure correct
+      //Campfire.create is not generating an id?
     {
       group_name: req.body.group_name,
       group_email: req.body.group_email,

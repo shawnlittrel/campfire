@@ -1,9 +1,10 @@
 const router = require("express").Router();
-const { User, Match, Campfire } = require("../../models");
+const { Users, Match, Campfire } = require("../../models");
 
 //create user
+//TODO: TESTED AND WORKING
 router.post("/", (req, res) => {
-  User.create({
+  Users.create({
     username: req.body.username,
     email: req.body.email,
     password: req.body.password,
@@ -65,8 +66,9 @@ router.post("/logout", (req, res) => {
 });
 
 //reads all users
+//TODO: TESTED AND WORKING
 router.get("/", (req, res) => {
-  User.findAll({
+  Users.findAll({
     attributes: { exclude: ["password"] },
   })
     .then((dbUserData) => res.json(dbUserData))
@@ -77,8 +79,9 @@ router.get("/", (req, res) => {
 });
 
 //reads 1 specific user
+//TODO: WORKING WITHOUT EXTRA INCLUDE STATEMENT
 router.get("/:id", (req, res) => {
-  User.findOne({
+  Users.findOne({
     attributes: { exclude: ["password"] },
     where: { id: req.params.id },
     
@@ -117,8 +120,9 @@ router.get("/:id", (req, res) => {
 });
 
 //update user info
+//TODO: No data in route to update any info
 router.put("/:id", (req, res) => {
-  User.update(req.body, {
+  Users.update(req.body, {
     individualHooks: true,
     where: { id: req.params.id },
   })
@@ -136,8 +140,9 @@ router.put("/:id", (req, res) => {
 });
 
 //delete user profile
+//TODO: TESTED AND WORKING
 router.delete("/:id", (req, res) => {
-  User.destroy({
+  Users.destroy({
     where: { id: req.params.id },
   })
     .then((dbUserData) => {
