@@ -8,23 +8,24 @@ Match.init(
           id: {
                type: DataTypes.INTEGER,
                primaryKey: true,
+               allowNull: false,
                autoIncrement: true
           },
 
           user_id: {
                type: DataTypes.INTEGER,
-               references: {
-                    model: 'user',
-                    key: 'id'
-               }
+               // references: {
+               //      model: 'user',
+               //      key: 'id'
+               // }
           },
 
           group_id: {
                type: DataTypes.INTEGER,
-               references: {
-                    model: 'group',
-                    key: 'id'
-               }
+               // references: {
+               //      model: 'group',
+               //      key: 'id'
+               // }
           },
 
           matched: {

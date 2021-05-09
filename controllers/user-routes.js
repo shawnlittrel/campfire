@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const { User, Match, Group } = require("../../models");
-const withAuth = require("../../utils/auth");
+const { Users, Match, Campfire } = require("../models");
+const withAuth = require("../utils/auth");
 
 //Render User Dashboard - is this where we have a create groups button and see what we matched with?
 router.get('/dashboard', (req, res) => {
@@ -85,5 +85,15 @@ router.get('/register', (req, res) => {
    });
 
 //TODO: any other pages that we need to get this rolling?
+
+//test route
+router.get('/test', (req, res) => {
+         Campfire.findAll({
+              include: [Users]
+         })
+     .then(dbTestData => {
+       res.json(dbTestData);
+     })
+     });
 
 module.exports = router;

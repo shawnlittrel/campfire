@@ -3,10 +3,10 @@ const sequelize = require('../config/connection');
 
 
 //Create Group Model
-class Group extends Model {}
+class Campfire extends Model {}
 
 //Define tables
-Group.init(
+Campfire.init(
      {
           id: {
                type: DataTypes.INTEGER,
@@ -30,7 +30,7 @@ Group.init(
           },
 
           group_location: {
-               type: DataTypes.INTEGER,
+               type: DataTypes.STRING,
                allowNull: false,
                validate: {
                     len: [5]
@@ -65,10 +65,10 @@ Group.init(
 
           creating_user_id: {
                type: DataTypes.INTEGER,
-               references: {
-                    model: 'user',
-                    key: 'id'
-               }
+               // references: {
+               //      model: 'user',
+               //      key: 'id'
+               // }
           }
      
      },
@@ -76,8 +76,10 @@ Group.init(
           sequelize,
           freezeTableName: true,
           underscored: true,
-          modelName: 'group'
+          createdAt: false,
+          updatedAt: false,
+          modelName: 'campfire'
      }
 );
 
-module.exports = Group;
+module.exports = Campfire;
