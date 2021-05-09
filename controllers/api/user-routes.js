@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { User, Match, Group } = require("../../models");
+const { User, Match, Campfire } = require("../../models");
 
 //create user
 router.post("/", (req, res) => {
@@ -85,7 +85,7 @@ router.get("/:id", (req, res) => {
     //TODO: review include:
     // include: [
     //   {
-    //     model: Group,
+    //     model: Campfire,
     //     attributes: [
     //       "id",
     //       "group_name",

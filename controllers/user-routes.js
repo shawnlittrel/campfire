@@ -1,8 +1,11 @@
 const router = require("express").Router();
 const { Users, Match, Campfire } = require("../models");
 const withAuth = require("../utils/auth");
+const Sequelize = require('sequelize');
+const { Op } = require("sequelize");
 
 //Render User Dashboard - is this where we have a create groups button and see what we matched with?
+//TODO: TESTED AND WORKING
 router.get('/dashboard', (req, res) => {
      Match.findAll({
           where: {
@@ -10,11 +13,11 @@ router.get('/dashboard', (req, res) => {
           }
      })
      .then(userMatchData => {
-          const userData = userMatchData.get({ plain: true });
+          //const userData = userMatchData.get({ plain: true });
           const loggedIn = req.session.loggedIn;
 
           if(loggedIn) {
-               res.render('dashboard', { userData });
+               res.render('dashboard', { userMatchData });
           } else {
                res.render('login');
           }
@@ -22,6 +25,7 @@ router.get('/dashboard', (req, res) => {
 });
 
 //Render Group Create page
+//TODO: NEED CREATE-GROUP HANDLEBARS PAGE
 router.get('/create-group', (req, res) => {
      if (req.session.loggedIn) {
           res.render('create-group');
@@ -31,6 +35,7 @@ router.get('/create-group', (req, res) => {
 });
 
 //Render Group Edit page
+//TODO: NEED EDIT-GROUP HANDLEBARS PAGE
 router.get('/edit-group', (req, res) => {
      if (req.session.loggedIn) {
           res.render('edit-group');
@@ -40,6 +45,7 @@ router.get('/edit-group', (req, res) => {
 })
 
 //Render Match/'Campfire'/Display random groups for matching
+//TODO: NEED CAMPFIRE HANDLEBARS PAGE
 router.get('/campfire', (req, res) => {
      const loggedIn = req.session.loggedIn;
      if(loggedIn){
@@ -75,12 +81,14 @@ router.get('/campfire', (req, res) => {
 });
 
 //Render Login page
-router.get("/login", (req, res) => {
+//TODO: TESTED AND WORKING
+router.get('/login', (req, res) => {
      res.render("login");
    });
 
 //Render Register page
-router.get("/register", (req, res) => {
+//TODO: NEED REGISTER HANDLEBARS PAGE
+router.get('/register', (req, res) => {
      res.render("register");
    });
 
@@ -93,6 +101,30 @@ router.get('/test', (req, res) => {
          })
      .then(dbTestData => {
        res.json(dbTestData);
+     })
+     });
+
+//Find a group user has not seen already
+router.get('/testCampfire', (req, res) => {
+     Campfire.findAll({
+          order:
+          Sequelize.literal('rand()'), 
+          limit: 1
+
+     })
+     .then(matchResData => {
+          //if match.matched = T || F where matchResData.id = match.group_id, get another campfire
+          if (!matchResData) {
+          console.log('no campfires found');
+          res.status(404).json({ message: 'No campfires found.' })
+          return;
+          }
+     
+          res.json(matchResData);
+     })
+     .catch(err => {
+          console.log(err);
+          res.status(500).json(err);
      })
      });
 

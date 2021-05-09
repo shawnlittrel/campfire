@@ -1,11 +1,12 @@
 const router = require("express").Router();
-const { User, Match, Group } = require("../../models");
+
+const { User, Match, Campfire } = require("../../models");
 const withAuth = require("../../utils/auth");
 //Need to add withAuth later
 
 //create a group
 router.post("/", (req, res) => {
-  Group.create({
+  Campfire.create({
     group_name: req.body.group_name,
     group_email: req.body.group_email,
     group_location: req.body.group_location,
@@ -24,7 +25,7 @@ router.post("/", (req, res) => {
 //read all group's info
 //TODO: not sure if we need to pull all group info for app functionality.
 router.get("/", (req, res) => {
-  Group.findAll({
+  Campfire.findAll({
     //exclude any info?
     // include: [
     //   {
@@ -47,7 +48,7 @@ router.get("/", (req, res) => {
 //read 1 specific group's info
 //TODO: We can use this when we add search functionality for a specific group.
 router.get("/:id", (req, res) => {
-  Group.findOne({
+  Campfire.findOne({
     where: { id: req.params.id },
     // include: [
     //   {
@@ -75,7 +76,7 @@ router.get("/:id", (req, res) => {
 
 //update and edit group
 router.put("/:id", (req, res) => {
-  Group.update(
+  Campfire.update(
       //needs review - not sure correct
     {
       group_name: req.body.group_name,
@@ -107,7 +108,7 @@ router.put("/:id", (req, res) => {
 
 //delete Group
 router.delete('/:id', (req, res) => {
-    Group.destroy({
+    Campfire.destroy({
       where: {
         id: req.params.id
       }
@@ -124,5 +125,7 @@ router.delete('/:id', (req, res) => {
         res.status(500).json(err);
       });
   });
+
+
 
 module.exports = router;
