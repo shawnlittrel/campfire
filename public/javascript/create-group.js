@@ -14,7 +14,7 @@ async function submitGroupHandler(event){
 
      let activity_description = document.querySelector('#activity-description').value.trim();
 
-     const response = await fetch(`/api/groups`, {
+     const response = await fetch(`/testroute`, {
           method: 'POST',
           body: JSON.stringify({
                group_name,

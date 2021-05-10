@@ -89,7 +89,6 @@ router.get('/register', (req, res) => {
      res.render("register");
    });
 
-
 //Render Landing Page
 router.get('/', (req, res) => {
      res.render('homepage');
@@ -142,3 +141,26 @@ router.get('/testCampfire', (req, res) => {
      });
 
 module.exports = router;
+
+//TEST Campfire create route, api not working
+router.post("/testroute", (req, res) => {
+     Campfire.create({
+       group_name: req.body.group_name,
+       group_email: req.session.email,
+       group_location: req.body.group_location,
+       activity_title: req.body.activity_title,
+       activity_description: req.body.activity_description,
+       activity_date: req.body.activity_date,
+       open_slots: req.body.open_slots,
+       creating_user_id: req.session.user_id  
+       //TODO: change to req.session.user_id when site is running properly
+     })
+       .then(dbGroupData => {
+         console.log('GROUP DATA', dbGroupData);
+         res.json(dbGroupData)
+       })
+       .catch((err) => {
+         console.log(err);
+         res.status(500).json(err);
+       });
+   });

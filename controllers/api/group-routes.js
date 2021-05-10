@@ -15,9 +15,11 @@ router.post("/", (req, res) => {
     activity_description: req.body.activity_description,
     activity_date: req.body.activity_date,
     open_slots: req.body.open_slots,
-    creating_user_id: req.session.id  //TODO: change to req.session.id when site is running properly
+    creating_user_id: req.session.user_id  
+    //TODO: change to req.session.user_id when site is running properly
   })
     .then(dbGroupData => {
+      console.log('GROUP DATA', dbGroupData);
       res.json(dbGroupData)
     })
     .catch((err) => {

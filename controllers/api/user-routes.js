@@ -29,7 +29,7 @@ router.post("/", (req, res) => {
 
 //user login
 router.post("/login", (req, res) => {
-  User.findOne({
+  Users.findOne({
     where: { email: req.body.email },
   }).then((dbUserData) => {
     if (!dbUserData) {
@@ -45,9 +45,12 @@ router.post("/login", (req, res) => {
     req.session.save(() => {
       req.session.user_id = dbUserData.id;
       req.session.username = dbUserData.username;
+      req.session.email = dbUserData.email;
       req.session.loggedIn = true;
 
-      res.json({ user: dbUserData, message: "You are now logged in!" });
+      console.log('DBUSERDATA', dbUserData);
+      console.log('SESSION', req.session);
+      res.json({ user: dbUserData, plain: true });
     });
   });
 });
