@@ -89,6 +89,11 @@ router.get('/register', (req, res) => {
      res.render("register");
    });
 
+
+//Render Landing Page
+router.get('/', (req, res) => {
+     res.render('homepage');
+})
 //TODO: any other pages that we need to get this rolling?
 
 //test route
