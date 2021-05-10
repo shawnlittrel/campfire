@@ -6,19 +6,18 @@ const withAuth = require("../../utils/auth");
 
 //create a group
 //TODO: TESTED, WORKING
-router.post("/create", (req, res) => {
+router.post("/", (req, res) => {
   Campfire.create({
     group_name: req.body.group_name,
-    group_email: req.body.group_email,
+    group_email: req.session.email,
     group_location: req.body.group_location,
     activity_title: req.body.activity_title,
     activity_description: req.body.activity_description,
     activity_date: req.body.activity_date,
     open_slots: req.body.open_slots,
-    creating_user_id: req.body.creating_user_id  //TODO: change to req.session.id when site is running properly
+    creating_user_id: req.session.id  //TODO: change to req.session.id when site is running properly
   })
     .then(dbGroupData => {
-      console.log('CREATING GROUP');
       res.json(dbGroupData)
     })
     .catch((err) => {

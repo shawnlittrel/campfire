@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const { Users, Match, Campfire } = require("../../models");
+const { Op } = require('sequelize');
 
 //create user
-//TODO: TESTED AND WORKING
 router.post("/", (req, res) => {
   Users.create({
     username: req.body.username,
@@ -27,7 +27,6 @@ router.post("/", (req, res) => {
     });
 });
 
-//TODO: untested
 //user login
 router.post("/login", (req, res) => {
   User.findOne({
@@ -66,7 +65,6 @@ router.post("/logout", (req, res) => {
 });
 
 //reads all users
-//TODO: TESTED AND WORKING
 router.get("/", (req, res) => {
   Users.findAll({
     attributes: { exclude: ["password"] },
@@ -83,34 +81,42 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   Users.findOne({
     attributes: { exclude: ["password"] },
-    where: { id: req.params.id },
+    where: { id: req.session.id },
     
-    //TODO: review include:
-    // include: [
-    //   {
-    //     model: Campfire,
-    //     attributes: [
-    //       "id",
-    //       "group_name",
-    //     //   "group_email",
-    //       "group_location",
-    //       "activity_title",
-    //       "acitivty_description",
-    //       "activity_date",
-    //       "open_slots",
-    //     ],
-    //   },
-    //   {
-    //     model: Match,
-    //     attributes: ["matched"],
-    //   },
-    // ],
+    include: [
+      {
+        model: Campfire,
+        attributes: [
+          "id",
+          "group_name",
+        //   "group_email",
+          "group_location",
+          "activity_title",
+          "activity_description",
+          "activity_date",
+          "open_slots",
+        ],
+      },
+      {
+        model: Match,
+        attributes: ["matched"],
+        include: [
+          {
+            model: Campfire,
+            where: {
+              user_id: {[Op.col]: req.session.id}
+            }
+          }, 
+        ]
+      },
+    ],
   })
     .then((dbUserData) => {
       if (!dbUserData) {
         res.status(404).json({ message: "User not found" });
         return;
       }
+      console.log(dbUserData);
       res.json(dbUserData);
     })
     .catch((err) => {
@@ -140,7 +146,6 @@ router.put("/:id", (req, res) => {
 });
 
 //delete user profile
-//TODO: TESTED AND WORKING
 router.delete("/:id", (req, res) => {
   Users.destroy({
     where: { id: req.params.id },

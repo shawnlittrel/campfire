@@ -1,28 +1,43 @@
 <section>
-  <h2>Create New Group Post</h2>
-
-  <form class="new-post-form">
-    <div>
-      <label for="post-title">Title</label>
-      <input type="text" id="post-title" name="post-title" />
+  <div class="row">
+    <div class="col s12 center-align">
+      <a href="/campfire">Check Out Some Campfires Near You!</a>
     </div>
-    <div>
-      <label for="post-url"> ??? </label>
-      <input        />
+  </div>
+  <div class="row">
+    <div class="col s12 center-align">
+      <a href="/create-group">Start a Campfire!</a>
     </div>
-    <button type="submit" class="btn">Create</button>
-  </form>
-</section>
+  </div>
 
-{{#if group.length}}
-<section>
-  <h2>Your Posts</h2>
-  <ol>
-    {{#each groups as |group|}}
-    <li>
-      {{> group-info group}}
-    </li>
-    {{/each}}
-  </ol>
-</section>
-{{/if}}
+  <div class="row">
+    <div class="col s12 center-align">
+      <h2 class="text-white">Your Matched Campfires</h2>
+    </div>
+
+    <div class="col s12 center-align">
+      <h3 class="text-white">{{campfire.group_name}}, {{campfire.activity_title}}</h3>
+      <p class="text-white">{{campfire.activity_date}}</p>
+      <p class="text-white">{{campfire.group_location}}</p>
+      <br / >
+      <p class="text-white">{{campfire.activity_description}}</p>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col s12 center-align">
+      <h2 class="text-white">Your Campfires</h2>
+    </div>
+
+    <div class="col s12 center-align">
+      <h3 class="text-white">Name: {{group_name}}</h3>
+      <p class="text-white">Title: {{activity_title}}</p>
+      <p class="text-white">Date: {{activity_date}}</p>
+      <p class="text-white">Open spaces: {{open_slots}}</p>
+      <br />
+      <p class="text-white">{{activity_description}}</p>
+    </div>
+
+  </div>
+ 
