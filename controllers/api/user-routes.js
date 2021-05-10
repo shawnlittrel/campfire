@@ -12,7 +12,7 @@ router.post("/", (req, res) => {
   })
     .then((dbUserData) => {
       req.session.save(() => {
-        req.session.id = dbUserData.id;
+        req.session.user_id = dbUserData.id;
         req.session.username = dbUserData.username;
         req.session.email = dbUserData.email;
         req.session.location = dbUserData.location;
@@ -84,7 +84,7 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   Users.findOne({
     attributes: { exclude: ["password"] },
-    where: { id: req.session.id },
+    where: { id: req.session.user_id },
     
     include: [
       {
@@ -107,7 +107,7 @@ router.get("/:id", (req, res) => {
           {
             model: Campfire,
             where: {
-              user_id: {[Op.col]: req.session.id}
+              user_id: {[Op.col]: req.session.user_id}
             }
           }, 
         ]

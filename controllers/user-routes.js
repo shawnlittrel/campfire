@@ -9,7 +9,7 @@ const { Op } = require("sequelize");
 router.get('/dashboard', (req, res) => {
      Match.findAll({
           where: {
-               user_id: req.session.id
+               user_id: req.session.user_id
           }
      })
      .then(userMatchData => {
@@ -17,7 +17,11 @@ router.get('/dashboard', (req, res) => {
           const loggedIn = req.session.loggedIn;
 
           if(loggedIn) {
-               res.render('dashboard', { userMatchData });
+               res.render('dashboard', { 
+                    userMatchData,
+                    loggedIn: req.session.loggedIn,
+                    username: req.session.username
+               });
           } else {
                res.render('login');
           }
@@ -92,18 +96,31 @@ router.get('/register', (req, res) => {
 //Render Landing Page
 router.get('/', (req, res) => {
      res.render('homepage');
-})
+});
 //TODO: any other pages that we need to get this rolling?
 
-//test route
-router.get('/test', (req, res) => {
-         Campfire.findAll({
-              include: [Users]
-         })
-     .then(dbTestData => {
-       res.json(dbTestData);
-     })
+//Render Matched Page
+router.get('/matched', (req, res) => {
+
+     res.render('matched', {
+
      });
+});
+
+//Render My Groups Page
+router.get('/created', (req, res) => {
+     Campfire.findAll({
+          where: {
+               creating_user_id: req.session.user_id
+          }
+     })
+     .then(campfireData => {
+          res.render('created', {
+               campfireData
+          });
+     })
+     .catch(err => console.log(err));    
+});
 
 //Find a group user has not seen already
 //TODO: this works for displaying random new group!
