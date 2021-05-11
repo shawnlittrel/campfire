@@ -81,6 +81,7 @@ router.get("/campfire", (req, res) => {
 });
 
 //Render Login page
+
 router.get("/login", (req, res) => {
   res.render("login");
 });
@@ -89,6 +90,7 @@ router.get("/login", (req, res) => {
 router.get("/register", (req, res) => {
   res.render("register");
 });
+
 
 //Render Landing Page  -- Is anything going here?
 router.get("/", (req, res) => {
