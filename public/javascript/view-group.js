@@ -1,10 +1,10 @@
 //Run query to update matches table when user clicks match
 async function matchGroupHandler(event){
      event.preventDefault();
-     let group_id = event.target.value
-     let user_id = req.session.user_id
+     let group_id = event.target.value;
+     let user_id = req.session.user_id;
 
-     const response = await fetch(`/api/matches`, {
+     const response = await fetch(`/matched`, {
           method: 'POST',
           body: JSON.stringify({
                group_id,

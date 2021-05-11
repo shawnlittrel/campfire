@@ -4,6 +4,13 @@ const withAuth = require("../utils/auth");
 const Sequelize = require("sequelize");
 const { Op } = require("sequelize");
 
+//Extra functions
+function filterMatches(obj){
+  const matchedGroups = obj.matchGroups.filter(id => id.value = req.session.id);
+
+  return matchedGroups;
+}
+
 //Render User Dashboard
 router.get("/dashboard", (req, res) => {
   Users.findOne({
@@ -98,16 +105,18 @@ router.get("/", (req, res) => {
 
 //Render Matched Page
 router.get("/matched", (req, res) => {
-  Campfire.findAll({})
-  .then((campfireData) => {
-    campfireData.matched_users.filter()
-       console.log('CAMPFIRE DATA', campfireData);
-    res.render("matched", {
-        campfireData,
-      })
-      .catch((err) => console.log(err));
+  Campfire.findAll({
+    where: 
+      Sequelize.literal(`SELECT * FROM campfire WHERE JSON_CONTAINS(${req.session.id})`)
+  })
+  .then(newCampfireData => {
+      console.log('CAMPFIRE DATA', newCampfireData);
+      // res.render("matched", {
+      //   campfireData,
+      res.json(newCampfireData);
+  })
+  .catch((err) => console.log(err));
   });
-});
 
 //Render My Groups Page
 router.get("/created", (req, res) => {

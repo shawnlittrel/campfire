@@ -26,6 +26,15 @@ router.post("/", (req, res) => {
     });
 });
 
+// //match a group
+// router.put('/matched', (req, res) => {
+//     Campfire.update(
+//       {
+//         Sequelize.literal(JSON_INSERT)
+//       }
+//     )
+// })
+
 //read all group's info
 //TODO: not sure if we need to pull all group info for app functionality.
 router.get("/", (req, res) => {
