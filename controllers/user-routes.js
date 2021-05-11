@@ -1,23 +1,23 @@
 const router = require("express").Router();
-const { Users, Match, Campfire } = require("../models");
+const { Users, Campfire } = require("../models");
 const withAuth = require("../utils/auth");
 const Sequelize = require("sequelize");
 const { Op } = require("sequelize");
 
 //Render User Dashboard
 router.get("/dashboard", (req, res) => {
-  Match.findAll({
+  Users.findOne({
     where: {
-      user_id: req.session.user_id,
+      id: req.session.user_id,
     },
-  }).then((userMatchData) => {
+  }).then((userData) => {
     //const userData = userMatchData.get({ plain: true });
     const loggedIn = req.session.loggedIn;
-    console.log('MATCH DATA', userMatchData);
+    console.log('User DATA', userData);
 
     if (loggedIn) {
       res.render("dashboard", {
-        userMatchData,
+        userData,
         loggedIn: req.session.loggedIn,
         username: req.session.username,
       });
@@ -98,16 +98,9 @@ router.get("/", (req, res) => {
 
 //Render Matched Page
 router.get("/matched", (req, res) => {
-  Match.findAll({
-    where: {
-      user_id: req.session.user_id,
-    },
-    include: [
-      {
-        model: Campfire,
-      },
-    ],
-  }).then((campfireData) => {
+  Campfire.findAll({})
+  .then((campfireData) => {
+    campfireData.matched_users.filter()
        console.log('CAMPFIRE DATA', campfireData);
     res.render("matched", {
         campfireData,

@@ -50,6 +50,11 @@ Users.init(
                validate: {
                     len: [5]
                }
+          },
+          matched_groups: {
+               type: DataTypes.JSON,
+               allowNull: true,
+               constraints: false
           }
           
      },
