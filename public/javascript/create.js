@@ -22,6 +22,7 @@ submitButton.addEventListener('click', function(event){
 
      const creating_user_id = submitButton.value;
 
+     
      const response = fetch('/api/groups', {
           method: 'POST',
           body: JSON.stringify({
@@ -36,14 +37,18 @@ submitButton.addEventListener('click', function(event){
           headers: {
                'Content-Type': 'application/json'
           }
-     });
-     console.log(response);
-
-     if (response.ok) {
-          console.log(response);
-          document.location.replace('/dashboard');
+     })
+     .then(response => {
+          debugger;
+          if (response.ok) {
+          console.log('OK RESPONSE', response);
+          location.replace('/dashboard');
      } else {
-          console.log(response);
+          console.log('BAD RESPONSE', response);
           alert(response.statusText);
      }
+     })
+     .catch(err => {
+          console.log(err);
+     })    
 });

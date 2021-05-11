@@ -5,7 +5,6 @@ const withAuth = require("../../utils/auth");
 //TODO: Need to add withAuth later
 
 //create a group
-//TODO: TESTED, WORKING through Insomnia.  Data going missing when submitted through front end.
 router.post("/", (req, res) => {
   Campfire.create({
     group_name: req.body.group_name,
@@ -16,11 +15,10 @@ router.post("/", (req, res) => {
     activity_date: req.body.activity_date,
     open_slots: req.body.open_slots,
     creating_user_id: req.body.creating_user_id
-    //TODO: change to req.session.user_id when site is running properly
   })
     .then(dbGroupData => {
       console.log('GROUP DATA', dbGroupData);
-      res.json(dbGroupData)
+      res.json(dbGroupData);
     })
     .catch((err) => {
       console.log(err);
