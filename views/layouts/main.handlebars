@@ -14,11 +14,7 @@
     <header>
       <nav class="indigo darken-4">
           <div class="nav-wrapper">
-            {{#if loggedIn}}
             <a class="name brand-logo" href="/dashboard">Campfire</a>
-            {{else}}
-            <a class="name brand-logo" href="/login">Campfire</a>
-            {{/if}}
             <ul id="nav-mobile" class="right hide-on-med-and-down">
               {{#if loggedIn}}
               <li><a href='/logout' class="white-text" id="logout">Logout</a></li>

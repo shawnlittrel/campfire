@@ -13,6 +13,7 @@ router.get("/dashboard", (req, res) => {
   }).then((userMatchData) => {
     //const userData = userMatchData.get({ plain: true });
     const loggedIn = req.session.loggedIn;
+    console.log('MATCH DATA', userMatchData);
 
     if (loggedIn) {
       res.render("dashboard", {
@@ -29,8 +30,14 @@ router.get("/dashboard", (req, res) => {
 //Render Group Create page
 //TODO: NEED CREATE-GROUP HANDLEBARS PAGE
 router.get("/create-group", (req, res) => {
-  if (req.session.loggedIn) {
-    res.render("create-group");
+  const loggedIn = req.session.loggedIn;
+  const user_id = req.session.user_id;
+  
+  if (loggedIn) {
+    res.render("create-group", {
+      loggedIn,
+      user_id
+    });
   } else {
     res.render("login");
   }
@@ -167,26 +174,3 @@ router.get("/testCampfire", (req, res) => {
 });
 
 module.exports = router;
-
-//TEST Campfire create route, api not working
-router.post("/testroute", (req, res) => {
-  Campfire.create({
-    group_name: req.body.group_name,
-    group_email: req.session.email,
-    group_location: req.body.group_location,
-    activity_title: req.body.activity_title,
-    activity_description: req.body.activity_description,
-    activity_date: req.body.activity_date,
-    open_slots: req.body.open_slots,
-    creating_user_id: req.session.user_id,
-    //TODO: change to req.session.user_id when site is running properly
-  })
-    .then((dbGroupData) => {
-      console.log("GROUP DATA", dbGroupData);
-      res.json(dbGroupData);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
