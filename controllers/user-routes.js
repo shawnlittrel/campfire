@@ -54,7 +54,7 @@ router.get("/edit-group", (req, res) => {
 
 //Render Match/'Campfire'/Display random groups for matching
 //TODO: NEED CAMPFIRE HANDLEBARS PAGE
-router.get("/campfire", (req, res) => {
+router.get("/testcampfire", (req, res) => {
   Campfire.findAll({
     order: Sequelize.literal("rand()"),
     limit: 1,
@@ -72,7 +72,7 @@ router.get("/campfire", (req, res) => {
       }
 
       console.log("MATCHRESDATA", matchResData);
-      res.render("campfire");
+      res.json(matchResData);
     })
     .catch((err) => {
       console.log(err);
