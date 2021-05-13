@@ -11,13 +11,13 @@ router.get("/dashboard", (req, res) => {
       user_id: req.session.user_id,
     },
   }).then((userMatchData) => {
-    const userData = userMatchData.get({ plain: true });
+    //const userData = userMatchData.get({ plain: true });
     const loggedIn = req.session.loggedIn;
-    console.log('MATCH DATA', userData);
+    //console.log('MATCH DATA', userData);
 
     if (loggedIn) {
       res.render("dashboard", {
-        userData,
+        userMatchData,
         loggedIn: req.session.loggedIn,
         username: req.session.username,
       });
@@ -33,6 +33,7 @@ router.get("/create-group", (req, res) => {
   const user_id = req.session.user_id;
 
   if (loggedIn) {
+    console.log('USERID', user_id);
     res.render("create-group", {
       loggedIn,
       user_id
@@ -54,37 +55,40 @@ router.get("/edit-group", (req, res) => {
 
 //Render Match/'Campfire'/Display random groups for matching
 //TODO: NEED CAMPFIRE HANDLEBARS PAGE
-router.get("/campfire", (req, res) => {
-  Campfire.findAll({
-    order: Sequelize.literal("rand()"),
-    limit: 1,
-  })
+// router.get("/campfire", (req, res) => {
+//   Campfire.findAll({
+//     order: Sequelize.literal("rand()"),
+//     limit: 1,
+//   })
 
   
-    .then((matchResData) => {
+//     .then((matchResData) => {
 
-      if (!matchResData) {
-        console.log("no campfires found");
-        res
-          .status(404)
-          .json({
-            message: `You've visited all the campfires in your area.  Check back later for new content!`,
-          });
-        return;
+//       if (!matchResData) {
+//         console.log("no campfires found");
+//         res
+//           .status(404)
+//           .json({
+//             message: `You've visited all the campfires in your area.  Check back later for new content!`,
+//           });
+//         return;
        
-      }
+//       }
 
-    var matchResData = {};
-     console.log("MATCHRESDATA", matchResData);
-     res.render("Campfire")
-     //res.json(matchResData);
-    })
+//     var matchResData = {};
+//      console.log("MATCHRESDATA", matchResData);
+//      res.render("Campfire")
+//      //res.json(matchResData);
+//     })
 
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
+//     .catch((err) => {
+//       console.log(err);
+//       res.status(500).json(err);
+//     });
+// });
+router.get('/campfire', (req, res) => {
+  res.render('campfire');
+})
 
 //Render Login page
 
