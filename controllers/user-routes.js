@@ -55,37 +55,34 @@ router.get("/edit-group", (req, res) => {
 
 //Render Match/'Campfire'/Display random groups for matching
 //TODO: NEED CAMPFIRE HANDLEBARS PAGE
-// router.get("/campfire", (req, res) => {
-//   Campfire.findAll({
-//     order: Sequelize.literal("rand()"),
-//     limit: 1,
-//   })
+//Render Match/'Campfire'/Display random groups for matching
+//TODO: NEED CAMPFIRE HANDLEBARS PAGE
+router.get("/testcampfire", (req, res) => {
+  Campfire.findAll({
+    order: Sequelize.literal("rand()"),
+    limit: 1,
+  })
+    .then((matchResData) => {
 
-  
-//     .then((matchResData) => {
+      if (!matchResData) {
+        console.log("no campfires found");
+        res
+          .status(404)
+          .json({
+            message: `You've visted all the campfires in your area.  Check back later for new content!`,
+          });
+        return;
+      }
 
-//       if (!matchResData) {
-//         console.log("no campfires found");
-//         res
-//           .status(404)
-//           .json({
-//             message: `You've visited all the campfires in your area.  Check back later for new content!`,
-//           });
-//         return;
-       
-//       }
+      res.json(matchResData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
 
-//     var matchResData = {};
-//      console.log("MATCHRESDATA", matchResData);
-//      res.render("Campfire")
-//      //res.json(matchResData);
-//     })
 
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).json(err);
-//     });
-// });
 router.get('/campfire', (req, res) => {
   res.render('campfire');
 })
