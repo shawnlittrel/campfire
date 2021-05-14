@@ -6,16 +6,17 @@ async function matchGroupHandler(event){
       
      let groupId = yesButton.getAttribute('data-groupId');
      let userId = yesButton.getAttribute('data-userId');
+     let matched = true;
 
      console.log('group id', groupId);
      console.log('user id', userId);
 
-     const response = await fetch(`/api/matches`, {
+     const response = await fetch(`/api/groups/campfire`, {
           method: 'POST',
           body: JSON.stringify({
                groupId,
                userId,
-               match: true
+               matched
           }),
           headers: {
                'Content-Type': 'application/json'
@@ -34,13 +35,14 @@ async function notMatchGroupHandler(event){
      event.preventDefault();
      let groupId = noButton.getAttribute('data-groupId');
      let userId = noButton.getAttribute('data-userId');
+     let matched = false;
 
-     const response = await fetch(`/api/matches`, {
+     const response = await fetch(`/api/groups/campfire`, {
           method: 'POST',
           body: JSON.stringify({
                groupId,
                userId,
-               match: false
+               matched
           }),
           headers: {
                'Content-Type': 'application/json'
@@ -58,7 +60,7 @@ async function notMatchGroupHandler(event){
      //Simply reload page if route is configured to randomly select a group where matches.match = null
      //Otherwise we'll have to figure out some logic here
 function generateCampfire(){
-     location.reload();
+     document.location.replace('campfire');
 };
 
 

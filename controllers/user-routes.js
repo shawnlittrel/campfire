@@ -1,12 +1,12 @@
 const router = require("express").Router();
-const { Users, Match, Campfire } = require("../models");
+const { Users, Matches, Campfire } = require("../models");
 const withAuth = require("../utils/auth");
 const Sequelize = require("sequelize");
 const { Op } = require("sequelize");
 
 //Render User Dashboard
 router.get("/dashboard", (req, res) => {
-  Match.findAll({
+  Matches.findAll({
     where: {
       user_id: req.session.user_id,
     },
@@ -53,7 +53,7 @@ router.get("/edit-group", (req, res) => {
   }
 });
 
-//Render Match/'Campfire'/Display random groups for matching
+//Render Campfire - random groups for matching
 router.get("/campfire", (req, res) => {
   Campfire.findOne({
     order: [
@@ -105,7 +105,7 @@ router.get("/", (req, res) => {
 
 //Render Matched Page
 router.get("/matched", (req, res) => {
-  Match.findAll({
+  Matches.findAll({
     where: {
       user_id: req.session.user_id,
     },
