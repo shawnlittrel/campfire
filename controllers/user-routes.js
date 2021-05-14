@@ -139,8 +139,13 @@ router.get("/created", (req, res) => {
     },
   })
     .then((campfireData) => {
+      const loggedIn = req.session.loggedIn;
+      const campfires = campfireData.map(created => created.get({ plain: true }));
+
+      console.log('OWNED GROUPS', campfires);
       res.render("created", {
-        campfireData,
+        campfires,
+        loggedIn
       });
     })
     .catch((err) => console.log(err));
