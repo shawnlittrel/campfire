@@ -1,17 +1,20 @@
+let yesButton = document.querySelector('#yes-btn');
+let noButton = document.querySelector('#no-btn')
 //Run query to update matches table when user clicks match
 async function matchGroupHandler(event){
      event.preventDefault();
-     let group_id = event.target.value
-     //let user_id = req.session.user_id
+      
+     let groupId = yesButton.getAttribute('data-groupId');
+     let userId = yesButton.getAttribute('data-userId');
 
-     console.log('button value', event.target.value);
-     console.log('user id', user_id)
+     console.log('group id', groupId);
+     console.log('user id', userId);
 
      const response = await fetch(`/api/matches`, {
           method: 'POST',
           body: JSON.stringify({
-               group_id,
-               user_id,
+               groupId,
+               userId,
                match: true
           }),
           headers: {
@@ -29,14 +32,14 @@ async function matchGroupHandler(event){
 //Run query to update matches table when user clicks no
 async function notMatchGroupHandler(event){
      event.preventDefault();
-     let group_id = event.target.value
-     let user_id = req.session.user_id
+     let groupId = noButton.getAttribute('data-groupId');
+     let userId = noButton.getAttribute('data-userId');
 
      const response = await fetch(`/api/matches`, {
           method: 'POST',
           body: JSON.stringify({
-               group_id,
-               user_id,
+               groupId,
+               userId,
                match: false
           }),
           headers: {
@@ -60,5 +63,5 @@ function generateCampfire(){
 
 
 //Event listeners
-document.querySelector('#yes-btn').addEventListener('click', matchGroupHandler);
-document.querySelector('#no-btn').addEventListener('click', notMatchGroupHandler);
+yesButton.addEventListener('click', matchGroupHandler);
+noButton.addEventListener('click', notMatchGroupHandler);

@@ -1,6 +1,6 @@
 <div class="row">
      <div class="col s3">
-        <button class= "no" id="no-btn" value = {{user_id}}>❌</button>  
+        <button class= "no" id="no-btn" data-userId="{{user_id}}" data-groupId="{{matchData.id}}">❌</button>  
      </div>
      <div class="col s6">
           <ul>
@@ -12,7 +12,7 @@
           </ul>
      </div>
      <div class="col s3">
-         <button class="yes" id="yes-btn" data-userId = {{userId}} value={{user_id}}>✅</button> 
+         <button class="yes" id="yes-btn" data-userId="{{user_id}}" data-groupId="{{matchData.id}}"->✅</button> 
      </div>
 </div>
 
