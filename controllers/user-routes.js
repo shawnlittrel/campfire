@@ -105,22 +105,30 @@ router.get("/", (req, res) => {
 
 //Render Matched Page
 router.get("/matched", (req, res) => {
-  Matches.findAll({
+  Users.findOne({
     where: {
-      user_id: req.session.user_id,
+      id: req.session.user_id
     },
+
     include: [
       {
         model: Campfire,
-      },
-    ],
-  }).then((campfireData) => {
-       console.log('CAMPFIRE DATA', campfireData);
+        through: Matches,
+      }
+    ]
+  })
+  .then((campfireData) => {
+    const newCampfireData = campfireData.get({ plain: true })
+    const groupInfo = newCampfireData.campfires;
+    let loggedIn = req.session.loggedIn
+
     res.render("matched", {
-        campfireData,
+        groupInfo,
+        loggedIn
       })
-      .catch((err) => console.log(err));
-  });
+      
+  })
+  .catch((err) => console.log(err));
 });
 
 //Render My Groups Page
