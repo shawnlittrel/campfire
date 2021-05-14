@@ -2,7 +2,10 @@
 async function matchGroupHandler(event){
      event.preventDefault();
      let group_id = event.target.value
-     let user_id = req.session.user_id
+     //let user_id = req.session.user_id
+
+     console.log('button value', event.target.value);
+     console.log('user id', user_id)
 
      const response = await fetch(`/api/matches`, {
           method: 'POST',

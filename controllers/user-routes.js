@@ -54,16 +54,19 @@ router.get("/edit-group", (req, res) => {
 });
 
 //Render Match/'Campfire'/Display random groups for matching
-//TODO: NEED CAMPFIRE HANDLEBARS PAGE
-//Render Match/'Campfire'/Display random groups for matching
-//TODO: NEED CAMPFIRE HANDLEBARS PAGE
-router.get("/testcampfire", (req, res) => {
-  Campfire.findAll({
-    order: Sequelize.literal("rand()"),
-    limit: 1,
+router.get("/campfire", (req, res) => {
+  // Campfire.findAll({
+  //   order: Sequelize.literal("rand()"),
+  //   limit: 1,
+  //})
+  Campfire.findOne({
+    order: [
+      Sequelize.fn( 'RAND' ),
+    ]
   })
     .then((matchResData) => {
-
+      
+      
       if (!matchResData) {
         console.log("no campfires found");
         res
@@ -73,19 +76,18 @@ router.get("/testcampfire", (req, res) => {
           });
         return;
       }
+      const user_id = req.session.user_id;
+      const matchData = matchResData.get({ plain: true });
 
-      res.json(matchResData);
+      console.log('MATCH RES DATA', matchData);
+      res.render('campfire', { matchData, user_id });
+      //res.json(matchResData);
     })
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
     });
 });
-
-
-router.get('/campfire', (req, res) => {
-  res.render('campfire');
-})
 
 //Render Login page
 

@@ -1,6 +1,20 @@
 <div class="row">
-     <div class="col s12">
-          <img src='/images/Under-Construction-Sign.png'>
+     <div class="col s3">
+        <button class= "no" id="no-btn" value = {{user_id}}>❌</button>  
+     </div>
+     <div class="col s6">
+          <ul>
+               <li>Group Name: <span class="white-text">{{matchData.group_name}}</span></li>
+               <li>Activity Title: <span class="white-text">{{matchData.activity_title}}</span></li>
+               <li>Happening On: <span class="white-text">{{matchData.activity_date}}</span></li>
+               <li>Needs <span class="white-text">{{matchData.open_slots}} </span>people </li>
+               <li>Description: <span class="white-text">{{matchData.activity_description}}</span></li>
+          </ul>
+     </div>
+     <div class="col s3">
+         <button class="yes" id="yes-btn" data-userId = {{userId}} value={{user_id}}>✅</button> 
      </div>
 </div>
+
+<script src="/javascript/view-group.js"></script>
 
